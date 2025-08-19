@@ -156,11 +156,11 @@ v mkdir -p $XDG_BIN_HOME $XDG_CACHE_HOME $XDG_CONFIG_HOME $XDG_DATA_HOME
 # original dotfiles and new ones in the SAME DIRECTORY
 # (eg. in ~/.config/hypr) won't be mixed together
 
-# MISC (For .config/* but not AGS, not Fish, not Hyprland)
+# MISC (For .config/* but not AGS, not ZSH, not Hyprland)
 case $SKIP_MISCCONF in
   true) sleep 0;;
   *)
-    for i in $(find .config/ -mindepth 1 -maxdepth 1 ! -name 'ags' ! -name 'fish' ! -name 'hypr' -exec basename {} \;); do
+    for i in $(find .config/ -mindepth 1 -maxdepth 1 ! -name 'ags' ! -name '.zshrc' ! -name 'hypr' -exec basename {} \;); do
 #      i=".config/$i"
       echo "[$0]: Found target: .config/$i"
       if [ -d ".config/$i" ];then v rsync -av --delete ".config/$i/" "$XDG_CONFIG_HOME/$i/"
@@ -170,10 +170,10 @@ case $SKIP_MISCCONF in
     ;;
 esac
 
-case $SKIP_FISH in
+case $SKIP_ZSH in
   true) sleep 0;;
   *)
-    v rsync -av --delete .config/fish/ "$XDG_CONFIG_HOME"/fish/
+    v rsync -av --delete .config/.zshrc "$HOME"/.zshrc
     ;;
 esac
 
